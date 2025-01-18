@@ -68,8 +68,9 @@
  *   };
  */
 #define ll_entry_declare(_type, _name, _list)				\
-	_type _u_boot_list_2_##_list##_2_##_name __aligned(4)		\
-			__attribute__((unused))				\
+	_type _u_boot_list_2_##_list##_2_##_name		\
+			__aligned(CONFIG_LINKER_LIST_ALIGN)		\
+			__maybe_unused							\
 			__section("__u_boot_list_2_"#_list"_2_"#_name)
 
 /**
@@ -91,8 +92,9 @@
  *   };
  */
 #define ll_entry_declare_list(_type, _name, _list)			\
-	_type _u_boot_list_2_##_list##_2_##_name[] __aligned(4)		\
-			__attribute__((unused))				\
+	_type _u_boot_list_2_##_list##_2_##_name[]		\
+			__aligned(CONFIG_LINKER_LIST_ALIGN)		\
+			__maybe_unused							\
 			__section("__u_boot_list_2_"#_list"_2_"#_name)
 
 /*
@@ -125,7 +127,7 @@
 #define ll_entry_start(_type, _list)					\
 ({									\
 	static char start[0] __aligned(CONFIG_LINKER_LIST_ALIGN)	\
-		__attribute__((unused))					\
+		__always_unused			\
 		__section("__u_boot_list_2_"#_list"_1");			\
 	_type * tmp = (_type *)&start;					\
 	asm("":"+r"(tmp));						\
@@ -153,7 +155,8 @@
  */
 #define ll_entry_end(_type, _list)					\
 ({									\
-	static char end[0] __aligned(4) __attribute__((unused))		\
+	static char end[0] __aligned(CONFIG_LINKER_LIST_ALIGN)	\
+		__always_unused			\
 		__section("__u_boot_list_2_"#_list"_3");			\
 	_type * tmp = (_type *)&end;					\
 	asm("":"+r"(tmp));						\
@@ -249,7 +252,8 @@
  */
 #define ll_start(_type)							\
 ({									\
-	static char start[0] __aligned(4) __attribute__((unused))	\
+	static char start[0] __aligned(CONFIG_LINKER_LIST_ALIGN)	\
+		__always_unused								\
 		__section("__u_boot_list_1");				\
 	_type * tmp = (_type *)&start;					\
 	asm("":"+r"(tmp));						\
@@ -274,7 +278,8 @@
  */
 #define ll_end(_type)							\
 ({									\
-	static char end[0] __aligned(4) __attribute__((unused))		\
+	static char end[0] __aligned(CONFIG_LINKER_LIST_ALIGN)	\
+		__always_unused								\
 		__section("__u_boot_list_3");				\
 	_type * tmp = (_type *)&end;					\
 	asm("":"+r"(tmp));						\
