@@ -430,26 +430,29 @@ long io_lmb_free(struct lmb *io_lmb, phys_addr_t base, phys_size_t size)
 
 static struct lmb lmb;
 
+#if defined(CONFIG_EFI_LOADER)
 static bool lmb_should_notify(u32 flags)
 {
 	return !lmb.test && !(flags & LMB_NONOTIFY) &&
 		CONFIG_IS_ENABLED(EFI_LOADER);
 }
+#endif
 
 static int lmb_map_update_notify(phys_addr_t addr, phys_size_t size, u8 op,
 				 u32 flags)
 {
-	u64 efi_addr;
-	u64 pages;
-	efi_status_t status;
-
 	if (op != MAP_OP_RESERVE && op != MAP_OP_FREE && op != MAP_OP_ADD) {
 		log_err("Invalid map update op received (%d)\n", op);
 		return -1;
 	}
 
+#if defined(CONFIG_EFI_LOADER)
 	if (!lmb_should_notify(flags))
 		return 0;
+
+	u64 efi_addr;
+	u64 pages;
+	efi_status_t status;
 
 	efi_addr = (uintptr_t)map_sysmem(addr, 0);
 	pages = efi_size_in_pages(size + (efi_addr & EFI_PAGE_MASK));
@@ -466,6 +469,7 @@ static int lmb_map_update_notify(phys_addr_t addr, phys_size_t size, u8 op,
 		return -1;
 	}
 	unmap_sysmem((void *)(uintptr_t)efi_addr);
+#endif
 
 	return 0;
 }
