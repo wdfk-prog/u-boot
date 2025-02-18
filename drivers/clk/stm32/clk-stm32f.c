@@ -102,7 +102,21 @@ enum pllsai_div {
 	PLLSAIR,
 };
 
-static const struct stm32_clk_info stm32f4_clk_info = {
+static const struct stm32_clk_info stm32f40x_clk_info = {
+	/* 168 MHz */
+	.sys_pll_psc = {
+		.pll_n = 336,
+		.pll_p = 2,
+		.pll_q = 4,
+		.ahb_psc = AHB_PSC_1,
+		.apb1_psc = APB_PSC_4,
+		.apb2_psc = APB_PSC_2,
+	},
+	.has_overdrive = false,
+	.v2 = false,
+};
+
+static const struct stm32_clk_info stm32f4xx_clk_info = {
 	/* 180 MHz */
 	.sys_pll_psc = {
 		.pll_n = 360,
@@ -136,6 +150,7 @@ struct stm32_clk {
 	struct stm32_clk_info info;
 	unsigned long hse_rate;
 	bool pllsaip;
+	bool pllsai_enable;
 };
 
 #ifdef CONFIG_VIDEO_STM32
@@ -226,9 +241,12 @@ static int configure_clocks(struct udevice *dev)
 		;
 
 	/* Enable the SAI PLL */
-	setbits_le32(&regs->cr, RCC_CR_PLLSAION);
-	while (!(readl(&regs->cr) & RCC_CR_PLLSAIRDY))
-		;
+	if(priv->pllsai_enable)
+	{
+		setbits_le32(&regs->cr, RCC_CR_PLLSAION);
+		while (!(readl(&regs->cr) & RCC_CR_PLLSAIRDY))
+			;
+	}
 	setbits_le32(&regs->apb1enr, RCC_APB1ENR_PWREN);
 
 	if (priv->info.has_overdrive) {
@@ -635,11 +653,18 @@ static int stm32_clk_probe(struct udevice *dev)
 	priv->pllsaip = true;
 
 	switch (dev_get_driver_data(dev)) {
+	case STM32F40X:
+		priv->pllsaip = false;
+		priv->pllsai_enable = false;
+		memcpy(&priv->info, &stm32f40x_clk_info,
+			sizeof(struct stm32_clk_info));
+	 	break;
+
 	case STM32F42X:
 		priv->pllsaip = false;
-		/* fallback into STM32F469 case */
+		priv->pllsai_enable = true;
 	case STM32F469:
-		memcpy(&priv->info, &stm32f4_clk_info,
+		memcpy(&priv->info, &stm32f4xx_clk_info,
 		       sizeof(struct stm32_clk_info));
 		break;
 
