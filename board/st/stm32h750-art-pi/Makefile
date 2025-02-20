@@ -4,3 +4,4 @@
 # Author(s): Dillon Min, <dillon.minfei@gmail.com> for RT-Thread.
 
 obj-y	:= stm32h750-art-pi.o
+obj-$(CONFIG_DEBUG_UART_BOARD_INIT) += debug_uart.o
