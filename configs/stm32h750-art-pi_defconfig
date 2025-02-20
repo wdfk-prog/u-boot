@@ -1,43 +1,160 @@
+#
+# Architecture select 
+#
 CONFIG_ARM=y
+#
+# ARM architecture
+#
 CONFIG_ARCH_STM32=y
-CONFIG_TEXT_BASE=0x90000000
-CONFIG_SYS_MALLOC_LEN=0x100000
-CONFIG_NR_DRAM_BANKS=1
-CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
-CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0x24040000
-CONFIG_ENV_SIZE=0x2000
-CONFIG_DEFAULT_DEVICE_TREE="stm32h750i-art-pi"
-CONFIG_OF_LIBFDT_OVERLAY=y
-CONFIG_SYS_LOAD_ADDR=0xc1800000
 CONFIG_STM32H7=y
 CONFIG_TARGET_STM32H750_ART_PI=y
-CONFIG_FIT=y
-CONFIG_DISTRO_DEFAULTS=y
-CONFIG_BOOTDELAY=3
-CONFIG_AUTOBOOT_KEYED=y
-CONFIG_AUTOBOOT_PROMPT="Hit SPACE in %d seconds to stop autoboot.\n"
-CONFIG_AUTOBOOT_STOP_STR=" "
+CONFIG_DDR_SI_TEST=n
+#
+# General setup 
+#
+CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
+CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0x24040000
+CONFIG_NR_DRAM_BANKS=1
+CONFIG_SYS_MALLOC_F_LEN=0x2000
+CONFIG_SYS_MALLOC_LEN=0x100000
+CONFIG_SYS_LOAD_ADDR=0x90080000
+CONFIG_STACK_SIZE=0x4000
+CONFIG_TEXT_BASE=0x90000000
+CONFIG_EXPERT=n
+#
+# Boot options
+#
+# CONFIG_DISTRO_DEFAULTS is not set
 CONFIG_USE_BOOTARGS=y
-CONFIG_BOOTARGS="console=ttySTM0,2000000 root=/dev/ram loglevel=8"
+CONFIG_BOOTARGS="console=ttySTM0,115200 root=/dev/ram loglevel=8"
+CONFIG_USE_BOOTCOMMAND=y
 CONFIG_BOOTCOMMAND="bootm 90080000"
 CONFIG_DEFAULT_FDT_FILE="stm32h750i-art-pi"
+#
+# Boot options -> Boot images 
+#
+CONFIG_TIMESTAMP=y
+CONFIG_FIT=y
+# CONFIG_LEGACY_IMAGE_FORMAT is not set
+#
+# Boot options -> Boot images -> Flattened Image Tree (FIT)
+#
+CONFIG_FIT_FULL_CHECK=y
+# CONFIG_FIT_VERBOSE=y
+CONFIG_FIT_PRINT=y
+#
+#  Boot options -> Boot images -> Standard boot
+#
+# CONFIG_BOOTSTD is not set
+# BOOT_DEFAULTS is not set
+#
+# Boot options -> Autoboot options
+#
+CONFIG_BOOTDELAY=3
+CONFIG_AUTOBOOT_KEYED=y
+CONFIG_AUTOBOOT_STOP_STR=" "
+CONFIG_AUTOBOOT_PROMPT="Hit SPACE in %d seconds to stop autoboot.\n"
+#
+# Boot options -> Devicetree fixup 
+#
+CONFIG_ARCH_FIXUP_FDT_MEMORY=n
+#
+# Console 
+# 
 CONFIG_SYS_CBSIZE=256
 CONFIG_SYS_PBSIZE=282
+CONFIG_LOGLEVEL=4
+# Init options
+# 
+# CONFIG_BOARD_EARLY_INIT_F is not set
 # CONFIG_DISPLAY_CPUINFO is not set
-CONFIG_BOARD_EARLY_INIT_F=y
-CONFIG_BOARD_LATE_INIT=y
+# CONFIG_BOARD_LATE_INIT is not set
+#
+#  Security support 
+# 
+# CONFIG_STACKPROTECTOR is not set
+#
+# Command line interface 
+#
 CONFIG_SYS_PROMPT="U-Boot > "
-CONFIG_CMD_GPT=y
+# CONFIG_SYS_XTRACE is not set
+#
+# Command line interface -> Info commands
+# 
+# CONFIG_CMD_BDI is not set
+# CONFIG_CMD_CONSOLE is not set
+#
+# Command line interface -> Boot commands
+#
+# CONFIG_CMD_BOOTD is not set
+# CONFIG_BOOTM_NETBSD is not set
+# CONFIG_BOOTM_PLAN9 is not set
+# CONFIG_BOOTM_RTEMS is not set
+# CONFIG_BOOTM_VXWORKS is not set
+# CONFIG_CMD_ELF is not set
+# CONFIG_CMD_FDT is not set
+# CONFIG_CMD_GO is not set
+# CONFIG_CMD_RUN is not set
+# CONFIG_CMD_XIMG is not set
+# CONFIG_CMD_IMI is not set
+#
+# Command line interface -> Environment commands
+#
+# CONFIG_CMD_EXPORTENV is not set
+# CONFIG_CMD_IMPORTENV is not set
+# CONFIG_CMD_EDITENV is not set
+# CONFIG_CMD_SAVEENV is not set
+# CONFIG_CMD_ENV_EXISTS is not set
+#
+# Command line interface -> Memory commands
+# 
+# CONFIG_CMD_CRC32 is not set
+# CONFIG_CMD_MEMORY is not set
+CONFIG_CMD_MEMINFO=y
+#
+# Command line interface -> Device access commands 
+#
+# CONFIG_CMD_LOADB is not set
+# CONFIG_CMD_LOADS is not set
 CONFIG_CMD_MMC=y
+#
+# Command line interface -> Shell scripting commands 
+# 
+# CONFIG_CMD_ECHO is not set
+# CONFIG_CMD_ITEST is not set
+# CONFIG_CMD_SOURCE is not set
 # CONFIG_CMD_SETEXPR is not set
-CONFIG_CMD_CACHE=y
+# 
+# Command line interface -> Misc commands
+# CONFIG_CMD_SLEEP is not set
+CONFIG_CMD_BLOCK_CACHE=y
 CONFIG_CMD_TIMER=y
-CONFIG_CMD_EXT4_WRITE=y
+#
+# Partition Types
+#
 # CONFIG_ISO_PARTITION is not set
+#
+# Device Tree Control
+# 
 CONFIG_OF_CONTROL=y
+CONFIG_DEFAULT_DEVICE_TREE="stm32h750i-art-pi"
+# CONFIG_OF_TAG_MIGRATE is not set
+#
+# Environment
+# 
+CONFIG_ENV_SIZE=0x2000
 CONFIG_SYS_RELOC_GD_ENV_ADDR=y
+# ENV_SUPPORT is not set
+#
+# Networking
+#
 CONFIG_NO_NET=y
-CONFIG_DM_DMA=y
-CONFIG_STM32_SDMMC2=y
+#
+# Device Drivers
+#
+# CONFIG_I2C is not set
+# CONFIG_INPUT is not set
 # CONFIG_PINCTRL_FULL is not set
-CONFIG_BAUDRATE=2000000
+CONFIG_DM_STATS=y
+CONFIG_BAUDRATE=115200
+CONFIG_STM32_SDMMC2=y
