@@ -5,3 +5,4 @@
 
 obj-y	:= stm32h750-art-pi.o
 obj-$(CONFIG_DEBUG_UART_BOARD_INIT) += debug_uart.o
+obj-y	+= led.o
