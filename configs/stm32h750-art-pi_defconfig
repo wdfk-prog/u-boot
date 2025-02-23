@@ -110,7 +110,6 @@ CONFIG_SYS_PROMPT="U-Boot > "
 # 
 # CONFIG_CMD_CRC32 is not set
 # CONFIG_CMD_MEMORY is not set
-CONFIG_CMD_MEMINFO=y
 #
 # Command line interface -> Device access commands 
 #
@@ -127,9 +126,12 @@ CONFIG_CMD_MMC=y
 # 
 # Command line interface -> Misc commands
 # CONFIG_CMD_SLEEP is not set
-CONFIG_CMD_BLOCK_CACHE=y
 CONFIG_CMD_TIMER=y
 #
+# Command line interface -> Device access commands
+#
+# CONFIG_CMD_PINMUX is not set
+
 #  Logging
 #
 # CONFIG_LOG=y
@@ -172,7 +174,12 @@ CONFIG_DEBUG_UART=y
 CONFIG_DEBUG_UART_BASE=0x40004c00
 CONFIG_DEBUG_UART_CLOCK=64000000
 CONFIG_STM32_SDMMC2=y
-
+#
+# File systems
+#
+CONFIG_CMD_FAT=y
+CONFIG_FS_FAT=y
+# button config
 CONFIG_BUTTON_CMD=y
 CONFIG_CMD_BUTTON=y
 CONFIG_BUTTON=y
