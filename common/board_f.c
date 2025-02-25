@@ -559,10 +559,10 @@ static int reserve_board(void)
 
 static int reserve_global_data(void)
 {
-	gd->start_addr_sp = reserve_stack_aligned(sizeof(gd_t));
-	gd->new_gd = (gd_t *)map_sysmem(gd->start_addr_sp, sizeof(gd_t));
+	// gd->start_addr_sp = reserve_stack_aligned(sizeof(gd_t));
+	gd->new_gd = (gd_t *)gd;
 	debug("Reserving %zu Bytes for Global Data at: %08lx\n",
-	      sizeof(gd_t), gd->start_addr_sp);
+	      0, gd->start_addr_sp);
 	return 0;
 }
 

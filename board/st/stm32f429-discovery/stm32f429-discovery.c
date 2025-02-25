@@ -50,6 +50,15 @@ int board_init(void)
 	return 0;
 }
 
+
+#ifdef CONFIG_BOARD_EARLY_INIT_F
+int board_early_init_f(void)
+{
+  gd->flags |= GD_FLG_SKIP_RELOC;
+  return 0;
+}
+#endif // CONFIG_BOARD_EARLY_INIT_F
+
 #ifdef CONFIG_MISC_INIT_R
 int misc_init_r(void)
 {

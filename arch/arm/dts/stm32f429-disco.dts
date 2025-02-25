@@ -21,7 +21,7 @@
 
 	memory@90000000 {
 		device_type = "memory";
-		reg = <0x90000000 0x800000>;
+		reg = <0x10000000 0x010000>;
 	};
 
 	aliases {
