@@ -28,7 +28,40 @@
 	};
 };
 
+&ltdc {
+	pinctrl-0 = <&ltdc_pins>;
+	pinctrl-names = "default";
+	status = "okay";
+	bootph-all;
+};
+
 &pinctrl {
+	   ltdc_pins: ltdc@0 {
+        pins {
+            pinmux = <STM32_PINMUX('K', 5, AF14)>,  /* LTDC_B6 */
+                    <STM32_PINMUX('I', 7, AF14)>,  /* LTDC_B7 */
+                    <STM32_PINMUX('K', 4, AF14)>,  /* LTDC_B5 */
+                    <STM32_PINMUX('J', 15, AF14)>, /* LTDC_B3 */
+                    <STM32_PINMUX('K', 3, AF14)>,  /* LTDC_B4 */
+                    <STM32_PINMUX('K', 7, AF14)>,  /* LTDC_DE */
+                    <STM32_PINMUX('I', 12, AF14)>, /* LTDC_HSYNC */
+                    <STM32_PINMUX('I', 13, AF14)>, /* LTDC_VSYNC */
+                    <STM32_PINMUX('I', 14, AF14)>, /* LTDC_CLK */
+                    <STM32_PINMUX('K', 2, AF14)>,  /* LTDC_G7 */
+                    <STM32_PINMUX('K', 0, AF14)>,  /* LTDC_G5 */
+                    <STM32_PINMUX('K', 1, AF14)>,  /* LTDC_G6 */
+                    <STM32_PINMUX('J', 11, AF14)>, /* LTDC_G4 */
+                    <STM32_PINMUX('J', 10, AF14)>, /* LTDC_G3 */
+                    <STM32_PINMUX('J', 9, AF14)>,  /* LTDC_G2 */
+                    <STM32_PINMUX('J', 6, AF14)>,  /* LTDC_R7 */
+                    <STM32_PINMUX('J', 5, AF14)>,  /* LTDC_R6 */
+                    <STM32_PINMUX('J', 2, AF14)>,  /* LTDC_R3 */
+                    <STM32_PINMUX('J', 3, AF14)>,  /* LTDC_R4 */
+                    <STM32_PINMUX('J', 4, AF14)>;  /* LTDC_R5 */
+            slew-rate = <3>;
+        };
+    };
+
 	fmc_pins: fmc@0 {
 		pins {
 			pinmux = <STM32_PINMUX('D', 0, AF12)>,
