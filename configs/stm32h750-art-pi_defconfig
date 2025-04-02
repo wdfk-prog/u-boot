@@ -26,7 +26,7 @@ CONFIG_EXPERT=n
 #
 # CONFIG_DISTRO_DEFAULTS is not set
 CONFIG_USE_BOOTARGS=y
-CONFIG_BOOTARGS="console=ttySTM0,115200 root=/dev/ram ignore_loglevel"
+CONFIG_BOOTARGS="console=ttySTM0,115200 root=/dev/ram earlyprintk ignore_loglevel"
 CONFIG_USE_BOOTCOMMAND=y
 CONFIG_BOOTCOMMAND="bootm 90080000"
 CONFIG_DEFAULT_FDT_FILE="stm32h750i-art-pi"
